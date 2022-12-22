@@ -10,7 +10,15 @@ class ProfileModel(models.Model):
     profileType= models.CharField(max_length=20)
 
 
-# class BuyerProfileModel(models.Model):
+
+class BuyerProfileModel(models.Model):
+    buyerProfileId= models.OneToOneField(ProfileModel, on_delete=models.CASCADE, primary_key=True)
+    cartId= models.IntegerField()
+    purchaseListId= models.IntegerField()
+    orderListId= models.IntegerField()
+
     
 
-# class SellerProfileModel():
+class SellerProfileModel(models.Model):
+    sellerProfileId= models.OneToOneField(ProfileModel, on_delete=models.CASCADE, primary_key= True)
+    storeName= models.CharField(max_length=50)
