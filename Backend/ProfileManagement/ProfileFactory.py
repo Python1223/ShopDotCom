@@ -6,7 +6,7 @@ class ProfileFactory:
     def getProfileModelIns(profileString: str)-> ProfileModel:
         profileModelIns= None
 
-        if profileString== "Buyer": profileModelIns= BuyerProfileModel(args)
-        elif profileString== "Seller": profileModelIns= SellerProfileModel(args)
+        if profileString== 'Buyer': profileModelIns= BuyerProfileModel(args)
+        elif profileString== 'Seller': profileModelIns= SellerProfileModel(args)
 
         return profileModelIns
