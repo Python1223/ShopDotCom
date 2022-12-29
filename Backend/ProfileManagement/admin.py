@@ -6,10 +6,10 @@ class ProfileModelAdmin(admin.ModelAdmin):
     list_display= ['profileId','userIns','profileType']
 
 class BuyerProfileModelAdmin(admin.ModelAdmin):
-    list_display= ['buyerProfileId','cartId','purchaseListId','orderListId']
+    list_display= ['profileModelIns','cartId','purchaseListId','orderListId']
 
 class SellerProfileModelAdmin(admin.ModelAdmin):
-    list_display= ['sellerProfileId','storeName']
+    list_display= ['profileModelIns','storeName']
 
 admin.site.register(ProfileModel, ProfileModelAdmin)
 admin.site.register(BuyerProfileModel, BuyerProfileModelAdmin)

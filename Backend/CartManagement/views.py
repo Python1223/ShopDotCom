@@ -42,11 +42,26 @@ class CartManagement(APIView):
 
         return Response(data= data, status= statusCode)
 
-    def post(self, request, operation, format= None):
+    def patch(self, request, operation, format= None)-> Response:
         '''
         This method handles post operations in cart of a buyer profile
         '''
-        pass
+        # userIns= request.user
+        # profileModelIns= ProfileModel.objects.filter(userIns= userIns)
+        # buyerProfileModelIns= BuyerProfileModel.objects.get(profileModelIns= profileModelIns)
+        # cartId= buyerProfileModelIns.cartId
+        # cartModelIns= CartModel.objects.get(cartId= cartId)
+        # itemIdList= cartModelIns.itemIdList
+
+
+        
+
+
+
+
+
+
+        
 
 
 
