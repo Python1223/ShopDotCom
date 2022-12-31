@@ -3,6 +3,8 @@ from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK
 from ProfileManagement.models import ProfileModel, BuyerProfileModel
 from CartManagement.models import CartModel
+from CartManagement.CartOperations import CartOperation, CartOperationFactory
+from CartManagement.serializers import CartModelSerializer
 
 class CartManagement(APIView):
     '''
@@ -46,12 +48,35 @@ class CartManagement(APIView):
         '''
         This method handles post operations in cart of a buyer profile
         '''
-        # userIns= request.user
-        # profileModelIns= ProfileModel.objects.filter(userIns= userIns)
-        # buyerProfileModelIns= BuyerProfileModel.objects.get(profileModelIns= profileModelIns)
-        # cartId= buyerProfileModelIns.cartId
-        # cartModelIns= CartModel.objects.get(cartId= cartId)
-        # itemIdList= cartModelIns.itemIdList
+        userIns= request.user
+        itemId= request.data.get('itemId',None)
+        
+        profileModelIns= ProfileModel.objects.filter(userIns= userIns)
+        buyerProfileModelIns= BuyerProfileModel.objects.get(profileModelIns= profileModelIns)
+        cartId= buyerProfileModelIns.cartId
+        cartModelIns= CartModel.objects.get(cartId= cartId)
+        itemIdList= cartModelIns.itemIdList
+        
+        cartOperationIns= CartOperationFactory(operation, itemIdList, itemId)
+        editItemIdList= cartOperationIns.editItemIdList()
+
+        data= {
+            'itemIdList': editItemIdList
+        }
+        cartModelIns= CartModelSerializer(cartModelIns, data= data ,partial= True)
+        if cartModelIns.is_valid(): 
+            cartModelIns.save()
+            return Response({'msg': 'Data Updated'}, status= HTTP_200_OK)
+
+        return Response(cartModelIns.errors, status= HTTP_200_OK)
+
+
+        
+
+
+
+
+
 
 
         
