@@ -1,26 +1,21 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-#  Profile model class 
-class ProfileModel(models.Model):
-    profileId= models.AutoField(primary_key=True)
-    userIns= models.OneToOneField(User,on_delete=models.CASCADE)
-    profileType= models.CharField(max_length=20)
-
-    @staticmethod
-    def isBuyer(profileModelIns)-> bool:
-        return profileModelIns.profileType== 'Buyer'
-    
-    @staticmethod
-    def isSeller(profileModelIns)-> bool:
-        return profileModelIns.profileType== 'Seller'
-
 class BuyerProfileModel(models.Model):
-    profileModelIns= models.OneToOneField(ProfileModel, on_delete=models.CASCADE, primary_key=True)
-    cartId= models.IntegerField()
-    purchaseListId= models.IntegerField()
-    orderListId= models.IntegerField()
+    '''
+    Model Class for Buyers
+    '''
+    userModelIns= models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    cartId= models.IntegerField(default= -1)
+    purchaseListId= models.IntegerField(default= -1)
+    orderListId= models.IntegerField(default= -1)
+    profileType= models.CharField(max_length= 10)
 
 class SellerProfileModel(models.Model):
-    profileModelIns= models.OneToOneField(ProfileModel, on_delete=models.CASCADE, primary_key= True)
+    '''
+    Model Class for Sellers
+    '''
+    userModelIns= models.OneToOneField(User, on_delete=models.CASCADE, primary_key= True)
+    storeId= models.IntegerField(default= -1)
     storeName= models.CharField(max_length=50)
+    profileType= models.CharField(max_length= 10)

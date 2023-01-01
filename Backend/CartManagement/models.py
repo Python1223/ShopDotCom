@@ -8,7 +8,7 @@ class CartModel(models.Model):
     '''
     cartId= models.AutoField(primary_key= True)
     buyerProfileModelIns= models.OneToOneField(to= BuyerProfileModel, on_delete=models.CASCADE)
-    itemIdList= models.CharField(max_length= 500)
+    itemIdList= models.CharField(max_length= 500, default= str())
 
     @staticmethod
     def getCartDisplayString(buyerProfileModelIns, cartId)-> str:

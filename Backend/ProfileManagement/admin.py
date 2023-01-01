@@ -1,16 +1,14 @@
 from django.contrib import admin
-from ProfileManagement.models import ProfileModel, BuyerProfileModel, SellerProfileModel
+from ProfileManagement.models import BuyerProfileModel, SellerProfileModel
 
 # Register your models here.
-class ProfileModelAdmin(admin.ModelAdmin):
-    list_display= ['profileId','userIns','profileType']
 
 class BuyerProfileModelAdmin(admin.ModelAdmin):
-    list_display= ['profileModelIns','cartId','purchaseListId','orderListId']
+    list_display= ['userModelIns','cartId','purchaseListId','orderListId','profileType']
 
 class SellerProfileModelAdmin(admin.ModelAdmin):
-    list_display= ['profileModelIns','storeName']
+    list_display= ['userModelIns','storeId','storeName','profileType']
 
-admin.site.register(ProfileModel, ProfileModelAdmin)
+
 admin.site.register(BuyerProfileModel, BuyerProfileModelAdmin)
 admin.site.register(SellerProfileModel, SellerProfileModelAdmin)
