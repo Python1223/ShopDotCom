@@ -46,6 +46,7 @@ class CartManagement(APIView):
         editItemIdList= cartOperationIns.editItemIdList()
 
         cartModelIns.itemIdList= editItemIdList
+        cartModelIns.save()
         
         data['message']= 'Cart operation done successfully'
         return Response(data= data, status= statusCode)
