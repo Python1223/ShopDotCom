@@ -12,7 +12,7 @@ class OrderOperation(ABC):
     @abstractmethod
     def editItemIdList()-> str: pass
 
-class AddItemOperation(OrderOperation):
+class AddOrderOperation(OrderOperation):
     '''
     AddItemOperation adds a specific itemId to an itemIdList string
     '''
@@ -71,7 +71,7 @@ class OrderOperationFactory:
         orderOperationIns= None
 
         if orderOperationString== 'AddItem':
-            orderOperationIns= AddItemOperation(itemIdList= itemIdList, itemIns= itemIns)
+            orderOperationIns= AddOrderOperation(itemIdList= itemIdList, itemIns= itemIns)
         # elif orderOperationString== 'DeleteItem':
         #     orderOperationIns= DeleteItemOperation(itemIdList= itemIdList, itemIns= itemIns)
         else:

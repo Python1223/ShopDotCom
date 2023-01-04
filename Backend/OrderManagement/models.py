@@ -10,9 +10,9 @@ class OrderModel(models.Model):
     orderId= models.AutoField(primary_key= True)
     buyerProfileModelIns= models.ForeignKey(to= BuyerProfileModel, on_delete=models.CASCADE)
     itemIns= models.ForeignKey(to= ItemModel, on_delete=models.CASCADE)
-    paymentStatus= models.BooleanField(default= False)
-    deliveryStatus= models.BooleanField(default= False)
-
+    
+    #paymentStatus= models.BooleanField(default= False)
+    #deliveryStatus= models.BooleanField(default= False)
 
 class OrderListModel(models.Model):
     orderListId= models.AutoField(primary_key= True)
