@@ -29,9 +29,7 @@ def checkNameExistance(username: str)-> bool:
     if len(list(querySet))== 0: return False
     else: return True
 
-
 class SignUp(APIView):
-
     authentication_classes = [BasicAuthentication]
     permission_classes = [AllowAny]
 

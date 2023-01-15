@@ -3,6 +3,7 @@ const URLS= {
   LandingPage: '/',
   Signup: '/Signup',
   Login: '/Login',
+  GetToken: '/getToken',
 }
 
 export default URLS
