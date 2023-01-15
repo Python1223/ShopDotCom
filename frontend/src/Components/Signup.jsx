@@ -1,5 +1,9 @@
-import React, { useState } from "react";
-import "./CSS/Signup.css";
+import axios from "axios"
+import React, { useState } from "react"
+import URLS from '../urls'
+import "./CSS/Signup.css"
+
+const SignupUrl= URLS.Backend_BASE_URL+ URLS.Signup
 
 const Signup= ()=> {
   const [addclass, setaddclass] = useState("")
@@ -14,7 +18,21 @@ const Signup= ()=> {
 
     console.log(event.target.name)
     if(event.target.name== 'BuyerSignupButton'){
-      console.log(buyerProfile); /*API Call*/
+      console.log(buyerProfile);
+
+      const signupData= {
+        'Username': buyerProfile.Username,
+        'Email': buyerProfile.Email,
+        'Password': buyerProfile.Password,
+        'ProfileString': 'Buyer'
+      }
+
+      console.log('Data-> ', signupData, 'url-> ', SignupUrl)
+
+      axios({method: 'post', url: SignupUrl, data: signupData}).then(
+        ((response)=> console.log(response)), 
+        ((error)=> console.log(error))
+      )
     }
     else{
       let newBuyerProfile= {...buyerProfile, [event.target.name]: event.target.value}
@@ -28,6 +46,21 @@ const Signup= ()=> {
     console.log(event.target.name)
     if(event.target.name=== 'SellerSignupButton'){
       console.log(sellerProfile); /*API Call*/
+
+      const signupData= {
+        'Username': sellerProfile.Username,
+        'Email': sellerProfile.Email,
+        'Password': sellerProfile.Password,
+        'ProfileString': 'Seller',
+        'StoreName': sellerProfile.StoreName
+      }
+
+      console.log('Data-> ', signupData, 'url-> ', SignupUrl)
+
+      axios({method: 'post', url: SignupUrl, data: signupData}).then(
+        ((response)=> console.log(response)),
+        ((error)=> console.log(error))
+      )
     }
     else{
       let newSellerProfile= {...sellerProfile, [event.target.name]: event.target.value}

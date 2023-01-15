@@ -19,7 +19,7 @@ class BuyerProfile(Profile):
         self.__modelIns= None
         
     def save(self)-> None:
-        self.__modelIns= BuyerProfile.__model(  userModelIns= self.__userIns,
+        self.__modelIns= BuyerProfile.__model(  userIns= self.__userIns,
                                                 profileType= self.__profileType)
         self.__modelIns.save()
 
@@ -36,7 +36,7 @@ class SellerProfile(Profile):
         self.__modelIns= None
 
     def save(self)-> None:
-        self.__modelIns= SellerProfile.__model( userModelIns= self.__userIns,
+        self.__modelIns= SellerProfile.__model( userIns= self.__userIns,
                                          storeId= self.__storeId,
                                          storeName= self.__storeName,
                                          profileType= self.__profileType)

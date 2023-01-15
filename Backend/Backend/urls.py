@@ -18,6 +18,6 @@ from django.urls import path, include
 from SignUp import urls as SignUpUrls
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('SignUp/', include(SignUpUrls))
+    path('admin', admin.site.urls),
+    path('Signup', include(SignUpUrls))
 ]
