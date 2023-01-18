@@ -43,6 +43,11 @@ INSTALLED_APPS = [
     'SignUp',
     'LogIn',
     'LogOut',
+    'ItemManagement',
+    'CartManagement',
+    'OrderManagement',
+    'PurchaseManagement',
+    'StoreManagement'
 ]
 
 MIDDLEWARE = [

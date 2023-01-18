@@ -7,12 +7,12 @@ class CartModel(models.Model):
     This Model Class is used to store Cart details of a particular buyer
     '''
     cartId= models.AutoField(primary_key= True)
-    buyerProfileModelIns= models.OneToOneField(to= BuyerProfileModel, on_delete=models.CASCADE)
+    buyerProfileIns= models.OneToOneField(to= BuyerProfileModel, on_delete=models.CASCADE)
     itemIdList= models.CharField(max_length= 500, default= str())
 
     @staticmethod
-    def getCartDisplayString(buyerProfileModelIns, cartId)-> str:
-        username= buyerProfileModelIns.buyerProfileId.userIns.username
+    def getCartDisplayString(buyerProfileIns, cartId)-> str:
+        username= buyerProfileIns.userIns.username
         lowerLim= 0; upperLim= 1000000
         randomNumber= randint(lowerLim, upperLim)
 
@@ -20,6 +20,6 @@ class CartModel(models.Model):
         return cartDisplayString
 
     def __str__(self)-> str:
-        cartDisplayString= CartModel.getCartDisplayString(self.buyerProfileModelIns, self.cartId)
+        cartDisplayString= CartModel.getCartDisplayString(self.buyerProfileIns, self.cartId)
         return cartDisplayString
         

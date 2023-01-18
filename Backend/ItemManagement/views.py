@@ -8,7 +8,6 @@ class ItemManagement(APIView):
     '''
     This View Class handles HTTP requests for Item 
     '''
-
     def get(self, request, format= None)-> Response:
         '''
         Function returns item details when item id is provided

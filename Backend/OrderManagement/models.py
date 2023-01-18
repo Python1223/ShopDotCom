@@ -8,7 +8,7 @@ class OrderModel(models.Model):
     This Model Class is used to store Order details of a particular buyer
     '''
     orderId= models.AutoField(primary_key= True)
-    buyerProfileModelIns= models.ForeignKey(to= BuyerProfileModel, on_delete=models.CASCADE)
+    buyerProfileIns= models.ForeignKey(to= BuyerProfileModel, on_delete=models.CASCADE)
     itemIns= models.ForeignKey(to= ItemModel, on_delete=models.CASCADE)
     
     #paymentStatus= models.BooleanField(default= False)
@@ -16,5 +16,5 @@ class OrderModel(models.Model):
 
 class OrderListModel(models.Model):
     orderListId= models.AutoField(primary_key= True)
-    buyerProfileModelIns= models.OneToOneField(to= BuyerProfileModel, on_delete=models.CASCADE)
+    buyerProfileIns= models.OneToOneField(to= BuyerProfileModel, on_delete=models.CASCADE)
     orderIdList= models.CharField(max_length= 500)

@@ -7,7 +7,7 @@ class BuyerProfileModelAdmin(admin.ModelAdmin):
     list_display= ['userIns', 'profileType']
 
 class SellerProfileModelAdmin(admin.ModelAdmin):
-    list_display= ['userIns', 'storeId', 'storeName', 'profileType']
+    list_display= ['userIns', 'profileType']
 
 
 admin.site.register(BuyerProfileModel, BuyerProfileModelAdmin)

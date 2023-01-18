@@ -1,6 +1,6 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.status import HTTP_200_OK
+from rest_framework.status import HTTP_200_OK, HTTP_201_CREATED, HTTP_404_NOT_FOUND
 from ProfileManagement.models import BuyerProfileModel
 from ItemManagement.models import ItemModel
 from OrderManagement.models import OrderModel, OrderListModel
@@ -11,7 +11,6 @@ class OrderManagement(APIView):
     '''
     This View Class handles Http request for Order
     '''
-
     def get(self, request, format= None)-> Response:
         '''
         This method returns order details of a order given an orderId
@@ -35,30 +34,29 @@ class OrderManagement(APIView):
         statusCode= HTTP_200_OK
 
         userIns= request.user
-        buyerProfileModelIns= BuyerProfileModel.objects.get(user= userIns)
+        buyerProfileIns= BuyerProfileModel.objects.get(user= userIns)
 
         itemId= request.data.get('itemId', None)    
         itemIns= ItemModel.objects.get(itemId= itemId)
 
-        orderModelIns= OrderModel(buyerProfileModelIns= buyerProfileModelIns, itemIns= itemIns)
+        orderModelIns= OrderModel(buyerProfileIns= buyerProfileIns, itemIns= itemIns)
         orderModelIns.save()
 
         data['message']= 'Order placed successfully'
         orderId= orderModelIns.orderId
         data['orderId']= orderId
 
-        orderListModelIns= OrderListModel.objects.filter(buyerprofileModelIns= buyerProfileModelIns)
-        orderIdList= orderListModelIns.orderIdList
+        orderListIns= OrderListModel.objects.filter(buyerprofileIns= buyerProfileIns)
+        orderIdList= orderListIns.orderIdList
         
         operation= 'AddItem'
         orderOperationIns= OrderOperationFactory(operation, orderIdList, orderId)
         editItemIdList= orderOperationIns.editItemIdList()
 
-        orderListModelIns.orderIdList= editItemIdList
-        orderListModelIns.save()
+        orderListIns.orderIdList= editItemIdList
+        orderListIns.save()
         
         return Response(data= data, status= statusCode)
-
 
 class OrderListManagement(APIView):
     '''
@@ -73,15 +71,29 @@ class OrderListManagement(APIView):
         statusCode= HTTP_200_OK
 
         userIns= request.user
-        buyerprofileModelIns= BuyerProfileModel.objects.get(userIns= userIns)
-        OrderListModelIns= OrderListModel.objects.filter(buyerprofileModelIns= buyerprofileModelIns)
-        orderIdList= OrderListModelIns.orderIdList
+        buyerprofileIns= BuyerProfileModel.objects.get(userIns= userIns)
+        OrderListIns= OrderListModel.objects.filter(buyerprofileIns= buyerprofileIns)
+        orderIdList= OrderListIns.orderIdList
 
-        data['message']= 'Order details fetched successfully'
-        data['orderIdList']= orderIdList
-
+        data['message']= 'Order details fetched successfully'; data['orderIdList']= orderIdList
         return Response(data= data, status= statusCode)
         
+    def post(self, request, format= None)-> Response:
+        '''
+        Creates Order list for a Buyer Profile
+        '''
+        data= {'message': str(), 'orderListId': None}; statusCode= HTTP_201_CREATED
+
+        userIns= request.user; buyerProfileIns= BuyerProfileModel.objects.get(user= userIns)
+        if buyerProfileIns is None:
+            data['message']= 'This is not a Buyer Profile'; statusCode= HTTP_404_NOT_FOUND
+        else:
+            orderListIns= OrderListModel(buyerProfileIns= buyerProfileIns); orderListId= orderListIns.orderListId
+            data['message']= 'Order List created successfully'; data['orderListId']= orderListId
+            statusCode= HTTP_201_CREATED
+
+        return Response(data= data, status= statusCode)
+
     def patch(self, request, operation, format= None)-> Response:
         '''
         This method handles patch operations in order of a buyer profile
@@ -92,15 +104,15 @@ class OrderListManagement(APIView):
         userIns= request.user
         orderId= request.data.get('orderId',None)
 
-        buyerProfileModelIns= BuyerProfileModel.objects.get(userIns= userIns)
-        orderListModelIns= OrderListModel.objects.filter(buyerprofileModelIns= buyerProfileModelIns)
-        orderIdList= orderListModelIns.orderIdList
+        buyerProfileIns= BuyerProfileModel.objects.get(userIns= userIns)
+        orderListIns= OrderListModel.objects.filter(buyerprofileIns= buyerProfileIns)
+        orderIdList= orderListIns.orderIdList
         
         orderOperationIns= OrderOperationFactory(operation, orderIdList, orderId)
         editItemIdList= orderOperationIns.editItemIdList()
 
-        orderListModelIns.orderIdList= editItemIdList
-        orderListModelIns.save()
+        orderListIns.orderIdList= editItemIdList
+        orderListIns.save()
         
         data['message']= 'Order operation done successfully'
         return Response(data= data, status= statusCode)

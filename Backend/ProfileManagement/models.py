@@ -11,7 +11,5 @@ class SellerProfileModel(models.Model):
     Model Class for Sellers
     '''
     userIns= models.OneToOneField(User, on_delete=models.CASCADE, primary_key= True)
-    storeId= models.IntegerField(default= -1)
-    storeName= models.CharField(max_length=50)
     profileType= models.CharField(max_length= 10, default= 'Seller')
     

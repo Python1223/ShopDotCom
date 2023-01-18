@@ -69,9 +69,9 @@ class SignUp(APIView):
         userIns.set_password(password); userIns.save()
 
         profileIns= ProfileFactory.getProfileIns(profileString= profileString, userIns= userIns, storeName= storeName)
-        profileIns.save()
-        #profileIns.setProfileResources()
+        op= profileIns.setProfileResources()
 
+        print("op-> {}".format(op))
         data['message']= 'Profile Created Successfully'
         statusCode= HTTP_201_CREATED
 

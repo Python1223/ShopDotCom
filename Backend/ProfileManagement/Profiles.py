@@ -1,13 +1,16 @@
 from abc import ABC, abstractmethod
 from ProfileManagement.models import BuyerProfileModel, SellerProfileModel
+from CartManagement.models import CartModel
+from OrderManagement.models import OrderListModel
+from PurchaseManagement.models import PurchaseListModel
+from StoreManagement.models import Store
 
 class Profile(ABC):
     '''
     Base Profile Abstract Class
     '''
     @abstractmethod
-    def save()-> None: pass
-
+    def setProfileResources()-> None: pass
 class BuyerProfile(Profile):
     '''
     Profile for Buyers
@@ -16,31 +19,34 @@ class BuyerProfile(Profile):
     def __init__(self, userIns)-> None:
         self.__userIns= userIns
         self.__profileType= 'Buyer'
-        self.__modelIns= None
-        
-    def save(self)-> None:
-        self.__modelIns= BuyerProfile.__model(  userIns= self.__userIns,
-                                                profileType= self.__profileType)
+        self.__modelIns= BuyerProfile.__model(userIns= self.__userIns, profileType= self.__profileType)
         self.__modelIns.save()
 
+    def setProfileResources(self)-> None:
+        cartIns= CartModel(buyerProfileIns= self.__modelIns)
+        cartIns.save(); cartId= cartIns.cartId
+        orderListIns= OrderListModel(buyerProfileIns= self.__modelIns)
+        orderListIns.save(); orderListId= orderListIns.orderListId
+        purchaseListIns= PurchaseListModel(buyerProfileIns= self.__modelIns)
+        purchaseListIns.save(); purchaseListId= purchaseListIns.purchaseListId
+
+        return cartId, orderListId, purchaseListId
 class SellerProfile(Profile):
     '''
     Profile for Sellers
     '''
     __model= SellerProfileModel
-    def __init__(self, userIns, storeName, storeId= -1)-> None:
+    def __init__(self, userIns, storeName)-> None:
         self.__userIns= userIns
-        self.__storeId= storeId
         self.__storeName= storeName
         self.__profileType= 'Seller'
-        self.__modelIns= None
-
-    def save(self)-> None:
-        self.__modelIns= SellerProfile.__model( userIns= self.__userIns,
-                                         storeId= self.__storeId,
-                                         storeName= self.__storeName,
-                                         profileType= self.__profileType)
+        self.__modelIns= SellerProfile.__model(userIns= self.__userIns, profileType= self.__profileType)
         self.__modelIns.save()
+
+    def setProfileResources(self)-> None:
+        storeIns= Store(storeName= self.__storeName, sellerProfileIns= self.__modelIns)
+        storeIns.save(); storeId= storeIns.storeId
+        return storeId
 
 class NoneProfile(Profile):
     '''
@@ -48,7 +54,7 @@ class NoneProfile(Profile):
     '''
     def __init__(self, *args)-> None: pass
 
-    def save(self)-> None: pass
+    def setProfileResources() -> None: pass
 
 class ProfileFactory:
     '''
@@ -56,10 +62,10 @@ class ProfileFactory:
     '''
     @staticmethod
     def getProfileIns(profileString, userIns, storeName)-> Profile:
-        profileModelIns= NoneProfile()
+        profileIns= NoneProfile()
 
-        if profileString== 'Buyer': profileModelIns= BuyerProfile(userIns= userIns)
-        elif profileString== 'Seller': profileModelIns= SellerProfile(userIns= userIns, storeName= storeName)
+        if profileString== 'Buyer': profileIns= BuyerProfile(userIns= userIns)
+        elif profileString== 'Seller': profileIns= SellerProfile(userIns= userIns, storeName= storeName)
 
-        return profileModelIns
+        return profileIns
         
