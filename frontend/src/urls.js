@@ -3,6 +3,7 @@ const URLS= {
   LandingPage: '/',
   Signup: '/Signup',
   Login: '/Login',
+  ProductDashboard: '/ProductDashboard',
   GetToken: '/getToken',
 }
 

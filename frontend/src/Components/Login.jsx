@@ -1,9 +1,8 @@
 import axios from "axios"
 import React, {useState} from "react"
 import URLS from '../urls'
-import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/css/bootstrap.css'
 import "./CSS/Login.css"
-
 
 const LoginUrl= URLS.Backend_BASE_URL+ URLS.Login
 const GetTokenUrl= URLS.Backend_BASE_URL+ URLS.GetToken
