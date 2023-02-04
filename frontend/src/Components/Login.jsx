@@ -1,6 +1,9 @@
 import axios from "axios"
 import React, {useState} from "react"
 import URLS from '../urls'
+import 'bootstrap/dist/css/bootstrap.css';
+import "./CSS/Login.css"
+
 
 const LoginUrl= URLS.Backend_BASE_URL+ URLS.Login
 const GetTokenUrl= URLS.Backend_BASE_URL+ URLS.GetToken
@@ -16,7 +19,7 @@ const Login= ()=> {
   const handleLogin= (event)=> {
     event.preventDefault()
 
-    if(event.target.name== 'LoginButton'){
+    if(event.target.name=== 'LoginButton'){
       console.log('loginState-> ', loginState)
 
       const Credentials= {'Username': loginState.Username, 'Password': loginState.Password}
@@ -39,7 +42,7 @@ const Login= ()=> {
         }),
         ((error)=>{
           let statusCode= error.response.status
-          if(statusCode== 400) {
+          if(statusCode=== 400) {
             console.log(loginWithCorrectCredentialsMessage); setLoginMessage(loginWithCorrectCredentialsMessage)
           }
           else
@@ -57,18 +60,18 @@ const Login= ()=> {
 
   return(
     <React.Fragment>
-      <form>
+      <form class="login">
+        <h2>Welcome Back</h2>
       <input
             type="text"
-            placeholder="USERNAME"
+            placeholder="Username"
             name="Username"
             value={loginState.Username}
             onChange={handleLogin}
             />
-      <br />
       <input
             type="password"
-            placeholder="PASSWORD"
+            placeholder="Password"
             name="Password"
             value={loginState.Password}
             onChange={handleLogin}

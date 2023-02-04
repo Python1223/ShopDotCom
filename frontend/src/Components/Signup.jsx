@@ -17,7 +17,7 @@ const Signup= ()=> {
     event.preventDefault()
 
     console.log(event.target.name)
-    if(event.target.name== 'BuyerSignupButton'){
+    if(event.target.name=== 'BuyerSignupButton'){
       console.log(buyerProfile);
 
       const signupData= {
