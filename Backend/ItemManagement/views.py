@@ -73,6 +73,3 @@ class ItemManagement(APIView):
 
         data['message']= "Item changed successfully"
         return Response(data= data, status= statusCode)
-
-
-
