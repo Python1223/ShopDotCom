@@ -4,6 +4,7 @@ import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import Signup from "./Components/Signup";
 import Login from './Components/Login';
 import LandingPage from './Components/LandingPage';
+import ProductDashboard from './Components/ProductDashboard'
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
           <Route exact path= '/' element= {<LandingPage />} />
           <Route exact path= '/Signup' element= {<Signup />} />
           <Route exact path= '/Login' element= {<Login />} />
+          <Route exact path= '/ProductDashboard' element= {<ProductDashboard />} />
         </Routes>
       </BrowserRouter>
     </React.Fragment>

@@ -1,5 +1,6 @@
 import axios from "axios"
 import React, {useState, useEffect} from "react"
+import Item from "./Item"
 import 'bootstrap/dist/css/bootstrap.css'
 import "./CSS/ProductDashboard.css"
 import URLS from '../urls'
@@ -33,26 +34,19 @@ const ProductDashboard= ()=>{
               </div>
           </div>
           <div class="row">
-            <div class="col-md-6 col-lg-4 col-xl-3">
-              <div id="product-1" class="single-product">
-                <div class="part-1">
-                  <ul>
-                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                    <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                    <li><a href="#"><i class="fa fa-plus"></i></a></li>
-                    <li><a href="#"><i class="fa fa-expand"></i></a></li>
-                  </ul>
-                </div>
-                <div class="part-2">
-                  <h3 class="product-title">Here Product Title</h3>
-                  <h4 class="product-old-price">$79.99</h4>
-                  <h4 class="product-price">$49.99</h4>
-                </div>
-              </div>
-            </div>
+            
+          <Item />
+          <Item />
+          <Item />
+          <Item />
+          <Item />
           </div>
         </div>
       </section>
+          
+
     </React.Fragment>
  ) 
 }
+
+export default ProductDashboard
