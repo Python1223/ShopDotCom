@@ -5,6 +5,8 @@ const URLS= {
   Login: '/Login',
   ProductDashboard: '/ProductDashboard',
   GetToken: '/getToken',
+  Item: '/Item',
+  Cart: '/Cart',
 }
 
 export default URLS

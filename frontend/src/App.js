@@ -1,10 +1,11 @@
 import React from 'react'
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 
-import Signup from "./Components/Signup";
-import Login from './Components/Login';
-import LandingPage from './Components/LandingPage';
+import Signup from "./Components/Signup"
+import Login from './Components/Login'
+import LandingPage from './Components/LandingPage'
 import ProductDashboard from './Components/ProductDashboard'
+import Item from './Components/Item'
 
 const App = () => {
   return (
@@ -15,10 +16,11 @@ const App = () => {
           <Route exact path= '/Signup' element= {<Signup />} />
           <Route exact path= '/Login' element= {<Login />} />
           <Route exact path= '/ProductDashboard' element= {<ProductDashboard />} />
+          <Route exact path= "/Item/:itemId" element= {<Item />}/>
         </Routes>
       </BrowserRouter>
     </React.Fragment>
-  );
-};
+  )
+}
 
-export default App;
+export default App

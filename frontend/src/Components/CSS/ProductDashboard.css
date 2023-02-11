@@ -42,7 +42,7 @@ a:hover {
   overflow: hidden;
 }
 
-.section-products .single-product .part-1::before {
+.section-products .single-product .part-1:before {
   position: absolute;
   content: "";
   top: 0;
@@ -53,14 +53,14 @@ a:hover {
   transition: all 0.3s;
 }
 
-.section-products .single-product:hover .part-1::before {
+/* .section-products .single-product:hover .part-1 {
   transform: scale(1.2,1.2) rotate(5deg);
-}
+} */
 
-.section-products #product-1 .part-1::before {
-  background: url("https://img.tatacliq.com/images/i7/437Wx649H/MP000000008831694_437Wx649H_202102192220101.jpeg") no-repeat center;
+.section-products #product-1 .part-1{
+  background: url("https://images.meesho.com/images/products/81729822/ts4t1_256.jpg") no-repeat center;
   background-size: cover;
-  transition: all 0.3s;
+  /* transition: all 0.3s; */
 }
 
 .section-products #product-2 .part-1::before {
@@ -148,7 +148,7 @@ a:hover {
   opacity: 0.6;
 }
 
-.section-products .single-product .part-2 .product-old-price::after {
+.section-products .single-product .part-2 .product-old-price:after {
   position: absolute;
   content: "";
   top: 50%;
@@ -157,4 +157,8 @@ a:hover {
   height: 1px;
   background-color: #444444;
   transform: translateY(-50%);
+}
+.right
+{
+  text-align: center;
 }

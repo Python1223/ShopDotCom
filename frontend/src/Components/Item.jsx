@@ -1,37 +1,59 @@
-import React, {useState} from "react";
-import './CSS/ProductDashboard.css'
+import React, {useState, useEffect} from 'react'
+import {useHistory, useParams} from 'react-router-dom'
+import axios from 'axios'
+import URLS from '../urls'
 
 const Item= ()=> {
 
+  const itemId= useParams().itemId
   const defaultItemState= {
-    'itemName': '', 'itemDetails': '', 'itemPrice': null, 'sellerProfile': '',
-    'itemCategory': null, 'itemImage': null
+    'itemName': '', 'itemDetails': '', 'itemPrice': null, 'sellerProfileId': null,
+    'itemCategory': null, 'itemImageUrl': null
   }
   let [itemState, setItemState]= useState(defaultItemState)
 
+  const setItemAttributes= (response)=> {
+    let updatedItemState= {
+      'itemName': response.data.itemName,
+      'itemDetails': response.data.itemDetails,
+      'itemPrice': response.data.itemPrice,
+      'sellerProfileId': response.data.sellerProfileId,
+      'itemCategory': response.data.itemCategory,
+      'itemImageUrl': response.data.itemImageUrl,
+    }
+    setItemState(updatedItemState)
+  }
+  const handleError= (error)=> console.log('Error-> ',error)
+  
+  const getItemAttributes= ()=> {
+    const url= URLS.Backend_BASE_URL+ URLS.Item+ '/'+ itemId
+    axios({method: 'get', url: url, data: {'itemId': itemId}}).then(setItemAttributes, handleError)
+  }
+  useEffect(getItemAttributes, [])
+
+  const handleAddToCart= ()=> {
+    const url= URLS.Backend_BASE_URL+ Cart
+    axios({url: url, method: patch, data: {itemId: itemId}}).then(
+      (response)=> useHistory().push(URLS.Cart),
+      (error)=> console.log(error)
+    )
+  }
+
+  //const handleBuyNow= ()=> {}
+
   return(
     <React.Fragment>
-          
-            <div class="col-md-6 col-lg-4 col-xl-3">
-              <div id="product-1" class="single-product">
-                <img src= "https://img.tatacliq.com/images/i7/437Wx649H/MP000000008831694_437Wx649H_202102192220101.jpeg" />
-                <div class="part-1">
+      <h3>{itemState.itemName}</h3>
+      <h3>{itemState.itemDetails}</h3>
+      <h3>{itemState.itemPrice}</h3>
+      <h3>{itemState.sellerProfileId}</h3>
+      <h3>{itemState.itemCategory}</h3>
+      <img src= {itemState.itemImageUrl}/>
 
-                  <ul>
-                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                    <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                    <li><a href="#"><i class="fa fa-plus"></i></a></li>
-                    <li><a href="#"><i class="fa fa-expand"></i></a></li>
-                  </ul>
-                </div>
-                <div class="part-2">
-                  <h3 class="product-title">Here Product Title</h3>
-                  <h4 class="product-old-price">$79.99</h4>
-                  <h4 class="product-price">$49.99</h4>
-                </div>
-              </div>
-            </div>
+      <button type="button" class="btn btn-success" onClick= {handleAddToCart()}>Add To Cart</button>
+      <button type="button" class="btn btn-success" onClick= {handleBuyNow()}>Buy Now</button>
     </React.Fragment>
   )
 }
+
 export default Item

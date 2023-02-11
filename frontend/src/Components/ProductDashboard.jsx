@@ -1,8 +1,8 @@
 import axios from "axios"
 import React, {useState, useEffect} from "react"
-import Item from "./Item"
-import 'bootstrap/dist/css/bootstrap.css'
+import ItemInProductDashboard from "./ItemInProductDashboard"
 import "./CSS/ProductDashboard.css"
+import 'bootstrap/dist/css/bootstrap.css'
 import URLS from '../urls'
 
 const ProductDashboardUrl= URLS.Backend_BASE_URL+ URLS.ProductDashboard
@@ -35,15 +35,24 @@ const ProductDashboard= ()=>{
           </div>
           <div class="row">
             
-          <Item />
-          <Item />
-          <Item />
-          <Item />
-          <Item />
+          <ItemInProductDashboard />
+          <ItemInProductDashboard />
+          <ItemInProductDashboard />
+          <ItemInProductDashboard />
+          <ItemInProductDashboard />
+          <ItemInProductDashboard />
+          <ItemInProductDashboard />
+          <ItemInProductDashboard />
+          <ItemInProductDashboard />
+          <ItemInProductDashboard />
+          <ItemInProductDashboard />
+          <ItemInProductDashboard />
+          <ItemInProductDashboard />
+          <ItemInProductDashboard />
+          <ItemInProductDashboard />
           </div>
         </div>
       </section>
-          
 
     </React.Fragment>
  ) 
