@@ -31,13 +31,13 @@ const Item= ()=> {
   }
   useEffect(getItemAttributes, [])
 
-  const handleAddToCart= ()=> {
-    const url= URLS.Backend_BASE_URL+ Cart
-    axios({url: url, method: patch, data: {itemId: itemId}}).then(
-      (response)=> useHistory().push(URLS.Cart),
-      (error)=> console.log(error)
-    )
-  }
+  // const handleAddToCart= ()=> {
+  //   const url= URLS.Backend_BASE_URL+ URLS.Cart
+  //   axios({url: url, method: 'patch', data: {itemId: itemId}}).then(
+  //     (response)=> useHistory().push(URLS.Cart),
+  //     (error)=> console.log(error)
+  //   )
+  // }
 
   //const handleBuyNow= ()=> {}
 
@@ -50,8 +50,8 @@ const Item= ()=> {
       <h3>{itemState.itemCategory}</h3>
       <img src= {itemState.itemImageUrl}/>
 
-      <button type="button" class="btn btn-success" onClick= {handleAddToCart()}>Add To Cart</button>
-      <button type="button" class="btn btn-success" onClick= {handleBuyNow()}>Buy Now</button>
+      {/* <button type="button" class="btn btn-success" onClick= {handleAddToCart()}>Add To Cart</button> */}
+      {/* <button type="button" class="btn btn-success" onClick= {handleBuyNow()}>Buy Now</button> */}
     </React.Fragment>
   )
 }

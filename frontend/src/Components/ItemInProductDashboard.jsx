@@ -12,7 +12,7 @@ const ItemInProductDashboard= ()=> {
   return(
     <React.Fragment>
           
-						<div class="col-md-6 col-lg-4 col-xl-3">
+						<div class="col-2">
 								<div id="product-1" class="single-product">
 										<div class="part-1">
 										</div>
