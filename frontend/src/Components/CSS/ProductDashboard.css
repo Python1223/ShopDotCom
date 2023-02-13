@@ -162,7 +162,6 @@ a:hover {
 .over
 {
   margin-top: 6px;
-  height: 60vh;
 }
 .c
 {
@@ -170,15 +169,10 @@ a:hover {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    overflow-x: auto;
-    overflow-y: hidden;
+
   
 }
 .carousel
 {
   height: 45vh;
-}
-.a
-{
-  height:60vh;
 }

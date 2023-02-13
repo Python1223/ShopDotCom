@@ -80,18 +80,48 @@ const ProductDashboard= ()=>{
                   </div>
               </div>
           </div>
-          <div class="row c over">
+          <div class="row">
             
+          {/* <ItemInProductDashboard />
           <ItemInProductDashboard />
           <ItemInProductDashboard />
           <ItemInProductDashboard />
           <ItemInProductDashboard />
           <ItemInProductDashboard />
           <ItemInProductDashboard />
-          <ItemInProductDashboard />
-          <ItemInProductDashboard />
+          <ItemInProductDashboard /> */}
+
+          <div class="card col-3">
+            <img class="card-img-top" src="https://assets.ajio.com/medias/sys_master/root/20221109/61kh/636b8ebaf997ddfdbd664273/-473Wx593H-462323964-purple-MODEL.jpg" alt="Card image cap"/>
+            <div class="card-body">
+              <p class="card-text">Buy</p>
+            </div>
           </div>
-          <div class="row c over">
+
+          <div class="card col-3">
+            <img class="card-img-top" src="https://assets.ajio.com/medias/sys_master/root/20221109/61kh/636b8ebaf997ddfdbd664273/-473Wx593H-462323964-purple-MODEL.jpg" alt="Card image cap"/>
+            <div class="card-body">
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+          </div>
+
+          <div class="card col-3">
+            <img class="card-img-top" src="G:\ShopDotCom\ShopDotCom\frontend\pic.png" alt="Card image cap"/>
+            <div class="card-body">
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+          </div>
+
+          <div class="card col-3">
+            <img class="card-img-top" src="..." alt="Card image cap"/>
+            <div class="card-body">
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+          </div>
+
+
+          </div>
+          <div class="row">
           <ItemInProductDashboard />
           <ItemInProductDashboard />
           <ItemInProductDashboard />
