@@ -29,7 +29,7 @@ const Login= ()=> {
           axios({method: 'post', url: GetTokenUrl, data: {username: Credentials.Username, password: Credentials.Password}})
           .then(
             ((response)=> {
-              console.log("adad res", response)
+              console.log("Response-> ", response)
               let accessToken= response.data.access
               let refreshToken= response.data.refresh
               localStorage.setItem("accessToken", accessToken)

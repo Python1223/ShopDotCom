@@ -7,6 +7,7 @@ const URLS= {
   GetToken: '/getToken',
   Item: '/Item',
   Cart: '/Cart',
+  Profile: '/Profile',
 }
 
 export default URLS

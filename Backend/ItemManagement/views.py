@@ -1,75 +1,73 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.status import HTTP_200_OK, HTTP_201_CREATED, HTTP_204_NO_CONTENT, HTTP_304_NOT_MODIFIED, HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND
 from ItemManagement.models import ItemModel
-from ItemManagement.serializers import ItemModelSerializer
+from ItemManagement.serializers import ItemSerializer
 
 class ItemManagement(APIView):
-    '''
-    This View Class handles HTTP requests for Item 
-    '''
-    def get(self, request, format= None)-> Response:
-        '''
-        Function returns item details when item id is provided
-        '''
-        data= {'message': str(), 'itemName': str(), 'itemPrice': int()}
-        statusCode= HTTP_200_OK
+    ''' This View Class handles HTTP requests for Item '''
 
-        itemId= request.data.get('itemId',None)
-        itemIns= ItemModel.objects.get(itemId= itemId)
-        itemName= itemIns.itemName
-        itemPrice= itemIns.itemPrice
+    # authentication_classes= [JWTAuthentication]
+    # permission_classes= [IsAuthenticated]
 
-        data['message']= "Item fetched successfully"
-        data['itemName']= itemName
-        data['itemPrice']= itemPrice
+    def get(self, request, itemId= None, format= None)-> Response:
+        ''' This method returns item details when item id is provided'''
 
-        return Response(data= data, status= statusCode)
+        if itemId is None: return Response(data= {}, status= HTTP_204_NO_CONTENT)
+
+        data= {'message': str(), 'item': None}; status= HTTP_200_OK
+        itemId= int(itemId)
+        try: itemIns= ItemModel.objects.get(itemId= itemId)
+        except: 
+            data['message']= 'No item with Item Id -> {} is found'.format(itemId); status= HTTP_404_NOT_FOUND
+            return Response(data= data, status= status)
+            
+        serializedItemIns= ItemSerializer(itemIns)
+        data['message']= 'Item fetched successfully'; data['item']= serializedItemIns.data
+            
+        return Response(data= data, status= status)
 
     def post(self, request, format= None)-> Response:
-
-        data= {'message': str()}
-        statusCode= HTTP_200_OK
-
-        itemName= request.data.get('itemName',None)
-        itemPrice= request.data.get('itemPrice',None)
-
-        itemModelIns= ItemModel(itemName= itemName, itemPrice= itemPrice )
-        itemModelIns.save()
-
-        data['message']= "Item added successfully"
-        return Response(data= data, status= statusCode)
-
-    def patch(self, request, format= None)-> Response:
-
-        data= {'message':str()}
-        statusCode= HTTP_200_OK
-
-        itemId= request.data.get('itemId',None)
-        newItemName= request.data.get('itemName',None)
-        newItemPrice= request.data.get('itemPrice',None)
-
-        itemIns= ItemModel.objects.get(itemId= itemId)
-        if itemIns is None:
-
-            data['message']= "No such item found"
-            statusCode= HTTP_404_NOT_FOUND
-            return Response(data= data, status= statusCode)
-
-        itemName= itemIns.itemName
-        itemPrice= itemIns.itemPrice
-
-        itemName= newItemName if newItemName is not None else itemName
-        if type(newItemPrice) != int: 
-
-            data['message']= "Please provide valid price as integer"
-            statusCode= HTTP_400_BAD_REQUEST
-            return Response(data= data, status= statusCode)
-
-        else: itemPrice= newItemPrice
+        ''' This method creates a new item '''
         
-        itemModelIns= ItemModel(itemName= itemName, itemPrice= itemPrice )
-        itemModelIns.save()
+        data= {'message': str(), 'item': None, 'error': None}; status= HTTP_201_CREATED
+        itemAttributes= request.data.get('itemAttributes', None)
+        if itemAttributes is None:
+            data['message']= 'No Item Attributes were sent'; status= HTTP_204_NO_CONTENT 
+            return Response(data= data, status= status)
 
-        data['message']= "Item changed successfully"
-        return Response(data= data, status= statusCode)
+        deserializedItemIns= ItemSerializer(data= itemAttributes)
+        if deserializedItemIns.is_valid(): 
+            itemIns= deserializedItemIns.save()
+            data['message']= 'Item created'; data['item']= ItemSerializer(itemIns).data
+        else: data['message']= 'Error while creating Item'; data['error']= deserializedItemIns.errors
+
+        return Response(data= data, status= status)
+
+    def patch(self, request, itemId= None, format= None)-> Response:
+        '''This method patches an item'''
+
+        data= {'message': str(), 'item': None, 'error': None}; status= HTTP_200_OK
+        if itemId is None:
+            data['message']= 'Please provide itemId'; status= HTTP_400_BAD_REQUEST
+            return Response(data= data, status= status)
+
+        itemId= int(itemId)
+        try: itemIns= ItemModel.objects.get(itemId= itemId)
+        except: 
+            data['message']= 'No item with Item Id -> {} is found'.format(itemId); status= HTTP_404_NOT_FOUND
+            return Response(data= data, status= status)
+
+        newItemAttributes= request.data.get(newItemAttributes)
+        deserializedItemIns= ItemSerializer(instance= itemIns, data= newItemAttributes, partial= True)
+
+        if deserializedItemIns.is_valid(): 
+            newItemIns= deserializedItemIns.save()
+            data['message']= 'Item with Item Id-> {} patched successfully'.format(itemId)
+            data['item']= newItemIns.data
+        else:
+            data['error']= deserializedItemIns.errors; status= HTTP_304_NOT_MODIFIED
+        
+        return Response(data= data, status= status)

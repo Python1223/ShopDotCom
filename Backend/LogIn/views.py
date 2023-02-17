@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.contrib.auth import authenticate, login
 from rest_framework.views import APIView
 from rest_framework.authentication import BasicAuthentication
@@ -12,6 +11,7 @@ class LogIn(APIView):
     def post(self ,request ,format= None):
         data= {'message': str()}; statusCode= None
 
+        print("request-> ", request.data, request.headers)
         requestData= request.data
         username= requestData.get('Username', None)
         password = requestData.get('Password',None)

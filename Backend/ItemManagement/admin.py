@@ -4,6 +4,6 @@ from ItemManagement.models import ItemModel
 # Register your models here.
 class ItemModelAdmin(admin.ModelAdmin):
     list_display= [ 'itemId', 'itemName' ,'itemDetails' ,'itemPrice', 'sellerProfile', 
-                    'itemCategory', 'itemImageUrl', 'itemEmbeddingUrl']
+                    'itemCategory', 'itemImage']
 
 admin.site.register(ItemModel, ItemModelAdmin)

@@ -30,7 +30,7 @@ def getDestinationImageUrl(instance, filename)-> str:
     global ITEM_CATEGORY
 
     itemCategoryString: str= ITEM_CATEGORY.get(instance.itemCategory)
-    destinationImageUrl: str= ''.join('Items/', itemCategoryString, '/', filename)
+    destinationImageUrl: str= ''.join(['Items/', itemCategoryString, '/', filename])
     return destinationImageUrl
 
 #def getDestinationImageEmeddingUrl(item)-> str:
@@ -46,11 +46,11 @@ class ItemModel(models.Model):
     global DEFAULT_DESTINATION_IMAGE_URL
 
     itemId= models.AutoField(primary_key= True)
-    itemName= models.CharField(max_length= 100)
-    itemDetails= models.CharField(max_length= 1000)
+    itemName= models.CharField(max_length= 100, default=str())
+    itemDetails= models.CharField(max_length= 1000, default=str())
     itemPrice= models.PositiveIntegerField(default= 0, validators= [MinValueValidator(0)])
-    sellerProfile= models.ForeignKey(to= SellerProfileModel, on_delete= models.CASCADE)
-    itemCategory= models.PositiveIntegerField(validators= [MinValueValidator(0), MaxValueValidator(16)])
+    sellerProfile= models.ForeignKey(to= SellerProfileModel, on_delete= models.CASCADE, null= True)
+    itemCategory= models.PositiveIntegerField(validators= [MinValueValidator(0), MaxValueValidator(16)], default=0)
     itemImage= models.ImageField(upload_to= getDestinationImageUrl, default= DEFAULT_DESTINATION_IMAGE_URL, blank= False)
 
 #class ItemEmbeddingModel(models.Model):

@@ -6,6 +6,7 @@ import URLS from '../urls'
 const Item= ()=> {
 
   const itemId= useParams().itemId
+  console.log('Item id-> ', itemId)
   const defaultItemState= {
     'itemName': '', 'itemDetails': '', 'itemPrice': null, 'sellerProfileId': null,
     'itemCategory': null, 'itemImageUrl': null
@@ -26,8 +27,13 @@ const Item= ()=> {
   const handleError= (error)=> console.log('Error-> ',error)
   
   const getItemAttributes= ()=> {
-    const url= URLS.Backend_BASE_URL+ URLS.Item+ '/'+ itemId
-    axios({method: 'get', url: url, data: {'itemId': itemId}}).then(setItemAttributes, handleError)
+    const url= URLS.Backend_BASE_URL+ URLS.Item+ '/'
+    const data= {itemId: itemId, hfhfh: '66'}
+    console.log(data)
+    const headers= {'Authorization': 'Bearer '+ localStorage.getItem('accessToken')}
+
+    console.log('Access Token-> ', localStorage.getItem('accessToken'))
+    axios({method: 'get', url: url, data: data, headers: headers}).then(setItemAttributes, handleError)
   }
   useEffect(getItemAttributes, [])
 
