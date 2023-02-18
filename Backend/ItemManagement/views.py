@@ -1,6 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.status import HTTP_200_OK, HTTP_201_CREATED, HTTP_204_NO_CONTENT, HTTP_304_NOT_MODIFIED, HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND
 from ItemManagement.models import ItemModel
@@ -11,6 +12,7 @@ class ItemManagement(APIView):
 
     # authentication_classes= [JWTAuthentication]
     # permission_classes= [IsAuthenticated]
+    #parser_classes = [MultiPartParser , FormParser]
 
     def get(self, request, itemId= None, format= None)-> Response:
         ''' This method returns item details when item id is provided'''

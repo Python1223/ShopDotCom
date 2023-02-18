@@ -8,7 +8,7 @@ class LogIn(APIView):
     authentication_classes= [BasicAuthentication]
     permission_classes= [AllowAny]
 
-    def post(self ,request ,format= None):
+    def post(self, request, format= None)-> Response:
         data= {'message': str()}; statusCode= None
 
         print("request-> ", request.data, request.headers)

@@ -1,12 +1,12 @@
 import React, {useState, useEffect} from 'react'
-import {useHistory, useParams} from 'react-router-dom'
 import axios from 'axios'
 import URLS from '../urls'
 
-const Item= ()=> {
+const Item= ({...props})=> {
 
-  const itemId= useParams().itemId
-  console.log('Item id-> ', itemId)
+  console.log(props)
+  const itemId= props.itemId
+  console.log('itemId_-> ', itemId)
   const defaultItemState= {
     'itemName': '', 'itemDetails': '', 'itemPrice': null, 'sellerProfileId': null,
     'itemCategory': null, 'itemImageUrl': null
@@ -15,49 +15,34 @@ const Item= ()=> {
 
   const setItemAttributes= (response)=> {
     let updatedItemState= {
-      'itemName': response.data.itemName,
-      'itemDetails': response.data.itemDetails,
-      'itemPrice': response.data.itemPrice,
-      'sellerProfileId': response.data.sellerProfileId,
-      'itemCategory': response.data.itemCategory,
-      'itemImageUrl': response.data.itemImageUrl,
+      'itemName': response.data.item.itemName,
+      'itemDetails': response.data.item.itemDetails,
+      'itemPrice': response.data.item.itemPrice,
+      'sellerProfileId': response.data.item.sellerProfileId,
+      'itemCategory': response.data.item.itemCategory,
+      'itemImageUrl': URLS.Backend_BASE_URL+ response.data.item.itemImage,
     }
-    setItemState(updatedItemState)
+    setItemState(updatedItemState) 
   }
   const handleError= (error)=> console.log('Error-> ',error)
   
   const getItemAttributes= ()=> {
-    const url= URLS.Backend_BASE_URL+ URLS.Item+ '/'
-    const data= {itemId: itemId, hfhfh: '66'}
-    console.log(data)
+    const url= URLS.Backend_BASE_URL+ URLS.Item+ '/'+ itemId
     const headers= {'Authorization': 'Bearer '+ localStorage.getItem('accessToken')}
 
-    console.log('Access Token-> ', localStorage.getItem('accessToken'))
-    axios({method: 'get', url: url, data: data, headers: headers}).then(setItemAttributes, handleError)
+    axios({method: 'get', url: url, headers: headers}).then(setItemAttributes, handleError)
   }
   useEffect(getItemAttributes, [])
 
-  // const handleAddToCart= ()=> {
-  //   const url= URLS.Backend_BASE_URL+ URLS.Cart
-  //   axios({url: url, method: 'patch', data: {itemId: itemId}}).then(
-  //     (response)=> useHistory().push(URLS.Cart),
-  //     (error)=> console.log(error)
-  //   )
-  // }
-
-  //const handleBuyNow= ()=> {}
-
   return(
     <React.Fragment>
+      <h2>ITEM</h2>
       <h3>{itemState.itemName}</h3>
       <h3>{itemState.itemDetails}</h3>
       <h3>{itemState.itemPrice}</h3>
       <h3>{itemState.sellerProfileId}</h3>
       <h3>{itemState.itemCategory}</h3>
       <img src= {itemState.itemImageUrl}/>
-
-      {/* <button type="button" class="btn btn-success" onClick= {handleAddToCart()}>Add To Cart</button> */}
-      {/* <button type="button" class="btn btn-success" onClick= {handleBuyNow()}>Buy Now</button> */}
     </React.Fragment>
   )
 }

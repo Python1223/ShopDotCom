@@ -15,6 +15,17 @@ const Login= ()=> {
   let [loginState, setLoginState]= useState(defaultLoginState)
   let [loginMessage, setLoginMessage]= useState('')
 
+  const getProfileType= ()=> {
+    let profileType= null
+    const url= URLS.Backend_BASE_URL+ URLS.Profile
+    const headers= {'Authorization': 'Bearer '+ localStorage.getItem('accessToken')}
+    axios({method: 'get', url: url, headers: headers}).then(
+      (response)=> profileType= response.data.profile.profileType,
+      (error)=> console.log('Error-> ', error)
+    )
+    return profileType
+  }
+
   const handleLogin= (event)=> {
     event.preventDefault()
 
@@ -32,8 +43,10 @@ const Login= ()=> {
               console.log("Response-> ", response)
               let accessToken= response.data.access
               let refreshToken= response.data.refresh
-              localStorage.setItem("accessToken", accessToken)
-              localStorage.setItem("refreshToken", refreshToken)
+              localStorage.setItem('accessToken', accessToken)
+              localStorage.setItem('refreshToken', refreshToken)
+
+              const profileType= getProfileType();localStorage.setItem("profileType", profileType)
               /*Redirect to Product Page*/
             }),
             ((error)=> {console.log("aaaaaa", error)})
