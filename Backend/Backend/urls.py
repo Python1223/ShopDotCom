@@ -5,8 +5,10 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from LogIn import urls as LogInUrls
 from SignUp import urls as SignUpUrls
 from ItemManagement import urls as ItemManagementUrls
-from Backend import settings
+from ProductDashboardManagement import urls as ProductDashboardUrls
+from CartManagement import urls as CartManagementUrls
 from ProfileManagement import views as VVVVIEWS
+from Backend import settings
 
 urlpatterns = [
     path('admin', admin.site.urls),
@@ -20,7 +22,13 @@ urlpatterns = [
     path('Signup', include(SignUpUrls)),
 
     path('Item/', include(ItemManagementUrls)),
-    path('Profile/', VVVVIEWS.Profile.as_view(),name= "dadda")
+    path('Profile/', VVVVIEWS.Profile.as_view(),name= "dadda"),
+
+    # Cart Url
+    path('Cart/', include(CartManagementUrls)),
+
+    # Product Dashboard Url
+    path('ProductDashboard/', include(ProductDashboardUrls)),
 ]
 
 urlpatterns+= static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,31 +1,32 @@
 from abc import ABC, abstractmethod
 
+
 class CartOperation(ABC):
-    '''
+    """
     CartOperation is an Abstract Base Class, from which concrete cart operation classes
-    are inherited. The concrete class are responsible for editting an itemIdList string
-    and returning the editted itemIdList string
+    are inherited. The concrete class are responsible for editing an itemIdList string
+    and returning the edited itemIdList string
 
     editItemIdList is an abstract method in CartOperation, which represents the strategy
     that will be used to modify the itemIdList string
-    '''
+    """
+    
     @abstractmethod
-    def editItemIdList()-> str: pass
+    def editItemIdList(self) -> str: pass
+
 
 class AddItemOperation(CartOperation):
-    '''
-    AddItemOperation adds a specific itemId to an itemIdList string
-    '''
+    """AddItemOperation adds a specific itemId to an itemIdList string"""
 
-    def __init__(self, itemIdList, itemIns)-> None:
-        self.itemIdListString= itemIdList
-        self.itemIns= itemIns
+    def __init__(self, itemIdList, itemIns) -> None:
+        self.itemIdListString = itemIdList
+        self.itemIns = itemIns
         
-    def editItemIdList(self)-> str:
-        editedItemIdListString= str()
+    def editItemIdList(self) -> str:
+        editedItemIdListString = str()
         
         itemInsId= self.itemIns.id
-        if len(self.itemIdListString)== 0: editedItemIdListString= str(itemInsId)
+        if len(self.itemIdListString) == 0:  editedItemIdListString= str(itemInsId)
         else: editedItemIdListString= "".join([self.itemIdListString, ",", str(itemInsId)])
         return editedItemIdListString
 

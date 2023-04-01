@@ -56,12 +56,12 @@ a:hover {
 /* .section-products .single-product:hover .part-1 {
   transform: scale(1.2,1.2) rotate(5deg);
 } */
-
+/* 
 .part-1{
   background: url("https://assets.myntassets.com/h_1440,q_100,w_1080/v1/assets/images/7342887/2018/9/28/f3f76d6f-1d54-4985-80b0-da8845a0f7be1538138015172-NUSH-Women-Black-Solid-Biker-Jacket-2951538138013207-1.jpg") no-repeat center;
   background-size: cover;
-  /* transition: all 0.3s; */
-}
+  transition: all 0.3s; 
+}*/
 
 .section-products #product-2 .part-1::before {
   background: url("https://rukminim1.flixcart.com/image/612/612/xif0q/jacket/1/j/q/xxl-1-no-jk-honcho-fashion-original-imaghu28mh5bfzhb.jpeg?q=70") no-repeat center;

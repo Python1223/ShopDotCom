@@ -6,7 +6,7 @@ const Item= ({...props})=> {
 
   console.log(props)
   const itemId= props.itemId
-  console.log('itemId_-> ', itemId)
+  console.log('itemId-> ', itemId)
   const defaultItemState= {
     'itemName': '', 'itemDetails': '', 'itemPrice': null, 'sellerProfileId': null,
     'itemCategory': null, 'itemImageUrl': null
@@ -42,7 +42,7 @@ const Item= ({...props})=> {
       <h3>{itemState.itemPrice}</h3>
       <h3>{itemState.sellerProfileId}</h3>
       <h3>{itemState.itemCategory}</h3>
-      <img src= {itemState.itemImageUrl}/>
+      <img src= {itemState.itemImageUrl} />
     </React.Fragment>
   )
 }

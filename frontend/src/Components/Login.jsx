@@ -1,5 +1,6 @@
 import axios from "axios"
 import React, {useState} from "react"
+import {useNavigate} from "react-router-dom"
 import URLS from '../urls'
 import 'bootstrap/dist/css/bootstrap.css'
 import "./CSS/Login.css"
@@ -11,6 +12,7 @@ const loginRetryMessage= 'Unexpected Error. Please Login again'
 
 const Login= ()=> {
 
+  let navigate= useNavigate()
   let defaultLoginState= {'Username': '', 'Password': ''}
   let [loginState, setLoginState]= useState(defaultLoginState)
   let [loginMessage, setLoginMessage]= useState('')
@@ -47,9 +49,10 @@ const Login= ()=> {
               localStorage.setItem('refreshToken', refreshToken)
 
               const profileType= getProfileType();localStorage.setItem("profileType", profileType)
-              /*Redirect to Product Page*/
+              console.log("Navigating to -> ", URLS.ProductDashboard)
+              navigate(URLS.ProductDashboard)
             }),
-            ((error)=> {console.log("aaaaaa", error)})
+            ((error)=> {console.log("Error-> ", error)})
           )
         }),
         ((error)=>{

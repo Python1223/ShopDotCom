@@ -13,12 +13,13 @@ const App = () => {
     <React.Fragment>
       <BrowserRouter>
         <Routes>
-          <Route exact path= '/' element= {<LandingPage />} />
-          <Route exact path= '/Signup' element= {<Signup />} />
-          <Route exact path= '/Login' element= {<Login />} />
-          <Route exact path= '/ProductDashboard' element= {<ProductDashboard />} />
-          <Route exact path= '/Profile' element= {<Profile />} />
-          <Route exact path= "/Item/:itemId" element= {<BuyerItemView />}/>
+          <Route exact path = '/' element= {<LandingPage />} />
+          <Route exact path = '/Signup' element= {<Signup />} />
+          <Route exact path = '/Login' element= {<Login />} />
+          <Route exact path = '/ProductDashboard' element= {<ProductDashboard />} />
+          <Route exact path = '/Profile' element= {<Profile />} />
+          <Route exact path = "/Item/:itemId" element= {<BuyerItemView />}/>
+          
         </Routes>
       </BrowserRouter>
     </React.Fragment>

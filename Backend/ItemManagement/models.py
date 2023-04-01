@@ -1,9 +1,9 @@
 from django.db import models
 from ProfileManagement.models import SellerProfileModel
 from django.core.validators import MinValueValidator, MaxValueValidator
-#from Backend.settings import EMBEDDING_URL
+# from Backend.settings import EMBEDDING_URL
 
-ITEM_CATEGORY: dict= {
+ITEM_CATEGORY: dict = {
     0: 'Blazer',
     1: 'Blouse',
     2: 'Cardigan',

@@ -1,36 +1,60 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import {useParams} from 'react-router-dom'
+import axios from 'axios'
 import Item from './Item'
 import URLS from '../urls'
+import addItemToCart from '../Utils/AddItemToCart'
+import deleteItemFromCart from '../Utils/DeleteItemFromCart'
 
-const CartUrl= URLS.Backend_BASE_URL+ URLS.Cart
+const CartButtonStates= ['Default', 'AddToCart', 'DeleteFromCart']
 
 const BuyerItemView= ()=> {
 
   const itemId= useParams().itemId
+  let [itemInCartState, setItemInCartState]= useState(null)
+  let [cartButtonState, setCartButtonState]= useState(CartButtonStates[0])
 
-  const addItemToCart=(event)=>{
-    event.preventDefault()
+  const checkItemInCart= ()=> {
     
-    console.log(event.target.name)
+    const handleCheckItemInCartResponse= (response)=> {
+      response.status == 302 ? setItemInCartState(true) : setItemInCartState(false)
+      response.status == 302 ? setCartButtonState(CartButtonStates[1]) : setCartButtonState(CartButtonStates[2])
+    }
     
-
-    console.log('Data-> ', signupData, 'url-> ', CartUrl)
-
-    // Include Access Token
-    axios({method: 'patch', url: CartUrl, data: {'itemId': itemId}}).then(
-    ((response)=> console.log(response)),
-    ((error)=> console.log(error))
-    )
-
+    const handleCheckItemInCartError= (error)=> console.log('Error occured while checking item in Cart-> ', error)
+    
+    const checkItemInCartUrl= URLS.Cart+ '/ItemInCart/'+ itemId
+    const headers= {'Authorization': 'Bearer '+ localStorage.getItem('accessToken')}
+    
+    axios({method: 'get', url: checkItemInCartUrl, headers: headers}).then
+    (handleCheckItemInCartResponse, handleCheckItemInCartError)
   }
-
-
+  useEffect(checkItemInCart, [])
+  
   return(
     <React.Fragment>
-    <Item itemId= {itemId} k2= {4}></Item>
-    <button name="AddItemToCartButton" type="submit" onClick={addItemToCart}>Add to Cart</button>
-    <button>Buy Now</button>
+      <Item itemId= {itemId} />
+      
+      {/* <button name = "GoToCartButton" type = "submit"
+              onClick = {() => Navigate(URLS.Cart)}>Cart</button> */}
+
+      
+      {()=> {
+        // Logic for which Cart button to get rendered
+        // Instead of buttennames we will add cartbuttonstates here
+        if(itemInCartState === true) return <button name="AddItemToCartButton" type="submit" 
+                                                    onClick={() => addItemToCart(itemId)}>
+                                                      Add Item To Cart
+                                            </button>
+        else if(itemInCartState === false) return <button name="DeleteFromCartButton" type="submit"
+                                                          onClick={() => deleteItemFromCart(itemId)}>
+                                                            Remove Item From Cart
+                                                  </button>
+        else return <button name = "DefaultCartButton">Default Cart Button</button>
+        }}()
+      
+      {/* <p>{CartString}</p> */}
+      <button>Buy Now</button>
     </React.Fragment>
   )
 }

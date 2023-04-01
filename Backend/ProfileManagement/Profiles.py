@@ -6,11 +6,10 @@ from PurchaseManagement.models import PurchaseListModel
 from StoreManagement.models import Store
 
 class Profile(ABC):
-    '''
-    Base Profile Abstract Class
-    '''
+    """ Base Profile Abstract Class """
+
     @abstractmethod
-    def setProfileResources()-> None: pass
+    def setProfileResources() -> None: pass
 class BuyerProfile(Profile):
     '''
     Profile for Buyers
@@ -36,7 +35,9 @@ class SellerProfile(Profile):
     Profile for Sellers
     '''
     __model= SellerProfileModel
-    def __init__(self, userIns, storeName)-> None:
+
+    def __init__(self, user_ins, store_name)-> None:
+
         self.__userIns= userIns
         self.__storeName= storeName
         self.__profileType= 'Seller'

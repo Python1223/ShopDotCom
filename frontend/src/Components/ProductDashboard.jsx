@@ -14,10 +14,12 @@ const ProductDashboard= ()=>{
   let [productListState, setProductListState]= useState(defaultProductListState)
 
   const getProductList= ()=> {
-    /*API Call + Populathe productListState */
     const headers= {'Authorization': 'Bearer'+ ' '+ accessToken}
     axios({method: 'get', url: ProductDashboardUrl, headers: headers}).then(
-      ((response)=> setProductListState(response.data.productList)),
+      ((response)=> {
+                      console.log('Item ids in Product Dashboard-> ', response)
+                      setProductListState(response.data.itemList)
+                    }),
       ((error)=>{console.log(error)})
     )
   }
@@ -65,15 +67,6 @@ const ProductDashboard= ()=>{
       <section class="section-products position">
         <div class="container-fluid">
           <div class="row">
-            
-          {/* <ItemInProductDashboard />
-          <ItemInProductDashboard />
-          <ItemInProductDashboard />
-          <ItemInProductDashboard />
-          <ItemInProductDashboard />
-          <ItemInProductDashboard />
-          <ItemInProductDashboard />
-          <ItemInProductDashboard /> */}
 
           <div class="card col-3 back">
             <h4 class="fonts">Male Shirts</h4>
@@ -125,18 +118,11 @@ const ProductDashboard= ()=>{
 
           </div>
           <div class="row back2">
-          <ItemInProductDashboard />
-          <ItemInProductDashboard />
-          <ItemInProductDashboard />
-          <ItemInProductDashboard />
-          <ItemInProductDashboard />
-          <ItemInProductDashboard />
-          <ItemInProductDashboard />
-          <ItemInProductDashboard />
-          <ItemInProductDashboard />
-          <ItemInProductDashboard />
-          <ItemInProductDashboard />
-          <ItemInProductDashboard />
+            {  
+              productListState.map(
+                (itemId, index)=> <ItemInProductDashboard itemId= {itemId} />
+              )
+            }
           </div>
 
           <div class="row">
