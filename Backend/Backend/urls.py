@@ -8,6 +8,7 @@ from ItemManagement import urls as ItemManagementUrls
 from ProductDashboardManagement import urls as ProductDashboardUrls
 from CartManagement import urls as CartManagementUrls
 from ProfileManagement import views as VVVVIEWS
+from reverse_image_search.views import ReverseImageSearch
 from Backend import settings
 
 urlpatterns = [
@@ -29,6 +30,8 @@ urlpatterns = [
 
     # Product Dashboard Url
     path('ProductDashboard/', include(ProductDashboardUrls)),
+
+    path('aaa/', ReverseImageSearch.as_view())
 ]
 
-urlpatterns+= static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

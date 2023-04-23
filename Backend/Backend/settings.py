@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'PurchaseManagement',
     'ProductDashboardManagement',
     'StoreManagement',
+    'reverse_image_search',
 ]
 
 MIDDLEWARE = [
@@ -126,7 +127,7 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-#JWT Settings
+# JWT Settings
 SIMPLE_JWT = {'ACCESS_TOKEN_LIFETIME' : timedelta(days=1)}
 
 # Media Settings
@@ -134,7 +135,7 @@ MEDIA_ROOT = ''.join([str(BASE_DIR), '/', 'ARTIFACTS/', 'Media/'])
 MEDIA_URL = '/Artifacts/Media/'
 
 # Embeddings Url
-EMBEDDING_URL= ''.join([str(BASE_DIR), '/', 'ARTIFACTS/', 'Embeddings/'])
+EMBEDDING_URL = ''.join([str(BASE_DIR), '/', 'ARTIFACTS/', 'Embeddings/'])
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
