@@ -3,6 +3,7 @@ from sklearn.decomposition import PCA
 from reverse_image_search import utils
 from reverse_image_search.dl_model_classes.vgg16.vgg16 import VGG16
 from reverse_image_search.dl_model_classes.multilabel_knn.multi_label_knn import MultiLabelKNN
+from ItemManagement.models import ItemModel
 
 
 class ReverseImageSearchMLPipeline:
@@ -18,7 +19,7 @@ class ReverseImageSearchMLPipeline:
         self.__image_tensor_shape: tuple[int, int] = pipeline_parameters['image_tensor_shape']
         self.__vgg16: VGG16 = pipeline_parameters['vgg16']
         self.__pca: PCA = PCA(n_components=pipeline_parameters['n_components'])
-        self.__knn_dict = pipeline_parameters['knn_dict']
+        # self.__knn_dict = pipeline_parameters['knn_dict']
 
         # array of knn
         # self.multilabel_knn: MultiLabelKNN = MultiLabelKNN(
@@ -41,5 +42,7 @@ class ReverseImageSearchMLPipeline:
         image_embedding: tf.Tensor
         image_label, image_embedding = self.__generate_embeddings(input_image_url=input_image_url)
 
+        neighbours: list[ItemModel] =
         knn = ReverseImageSearchMLPipeline.get_knn(label=image_label)
         recommendations: list[int] = [neighbour.item_id for neighbour in knn.get_nearest_neighbours()]
+        return recommendations

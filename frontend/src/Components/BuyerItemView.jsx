@@ -21,7 +21,7 @@ const BuyerItemView= ()=> {
       response.status == 302 ? setCartButtonState(CartButtonStates[1]) : setCartButtonState(CartButtonStates[2])
     }
     
-    const handleCheckItemInCartError= (error)=> console.log('Error occured while checking item in Cart-> ', error)
+    const handleCheckItemInCartError= (error)=> console.log('Error occurred while checking item in Cart-> ', error)
     
     const checkItemInCartUrl= URLS.Cart+ '/ItemInCart/'+ itemId
     const headers= {'Authorization': 'Bearer '+ localStorage.getItem('accessToken')}

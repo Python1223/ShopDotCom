@@ -45,13 +45,15 @@ class ItemModel(models.Model):
     '''Model class for Item'''
     global DEFAULT_DESTINATION_IMAGE_URL
 
-    itemId= models.AutoField(primary_key= True)
-    itemName= models.CharField(max_length= 100, default=str())
-    itemDetails= models.CharField(max_length= 1000, default=str())
-    itemPrice= models.PositiveIntegerField(default= 0, validators= [MinValueValidator(0)])
-    sellerProfile= models.ForeignKey(to= SellerProfileModel, on_delete= models.CASCADE, null= True)
-    itemCategory= models.PositiveIntegerField(validators= [MinValueValidator(0), MaxValueValidator(16)], default=0)
-    itemImage= models.ImageField(upload_to= getDestinationImageUrl, default= DEFAULT_DESTINATION_IMAGE_URL, blank= False)
+    itemId = models.AutoField(primary_key= True)
+    itemName = models.CharField(max_length= 100, default=str())
+    itemDetails = models.CharField(max_length= 1000, default=str())
+    itemPrice = models.PositiveIntegerField(default= 0, validators= [MinValueValidator(0)])
+    sellerProfile = models.ForeignKey(to= SellerProfileModel, on_delete= models.CASCADE, null= True)
+    itemCategory = models.PositiveIntegerField(validators= [MinValueValidator(0), MaxValueValidator(16)], default=0)
+    itemImage = models.ImageField(upload_to= getDestinationImageUrl, default= DEFAULT_DESTINATION_IMAGE_URL, blank= False)
+    itemEmbeddingUrl = models.FileField(upload_to="aa", default="aa", blank=False)
+    itemLabel = models.IntegerField(default=-1)
 
 #class ItemEmbeddingModel(models.Model):
 #    '''Model class for Item Embedding'''

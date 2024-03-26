@@ -4,7 +4,7 @@ import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import Signup from './Components/Signup'
 import Login from './Components/Login'
 import LandingPage from './Components/LandingPage'
-import ProductDashboard from './Components/ProductDashboard'
+import ProductDashboard from './Components/ProductDashboard/ProductDashboard'
 import BuyerItemView from './Components/BuyerItemView'
 import Profile from './Components/Profile'
 

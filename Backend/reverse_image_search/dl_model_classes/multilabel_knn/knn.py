@@ -6,44 +6,38 @@ from utils.min_heap import MinHeap
 from utils.euclidean_distance import EuclideanDistance
 
 
-class MultiLabelKNN:
+class KNN:
     """ Multi Label KNN Classifier """
 
-    def __init__(self, feature_tensor: tf.Tensor, label_tensor: tf.Tensor, k: int) -> None:
+    def __init__(self, k: int) -> None:
         """
             Inputs: feature Tensor -> Input Embeddings; label Tensor -> Input Labels
             Hyper-parameters: k -> Number of nearest neighbours to consider
             n -> Number of samples
         """
 
-        self.__feature_tensor: tf.Tensor = feature_tensor
-        self.__label_tensor: tf.Tensor = label_tensor
         self.__k: int = k
-        self.__n: int = self.__feature_tensor.shape[0]
-        self.__validate_inputs(feature_tensor=self.__feature_tensor,
-                               label_tensor=self.__label_tensor,
-                               k=self.__k,
-                               n=self.__n)
-        self.__labels: set[int] = set(MultiLabelKNN.__convert_tensor_to_list_of_ints(self.__label_tensor))
-        self.__int_label_tensor: list[int] = list(MultiLabelKNN.__convert_tensor_to_list_of_ints(self.__label_tensor))
+        # self.__validate_inputs(feature_tensor=self.__feature_tensor,
+        #                        label_tensor=self.__label_tensor,
+        #                        k=self.__k,
+        #                        n=self.__n)
 
-    def predict_label(self, input_feature_tensor: tf.Tensor) -> int:
+    def predict_k_nearest_neighbours(self, feature_tensor_list: list[tf.Tensor], input_feature_tensor: tf.Tensor) -> int:
         """ Predicts label given an input feature tensor """
 
         min_heap: MinHeap = MinHeap(max_length=self.__k)
+        k_nearest_neighbours: list[tf.Tensor] = list()
 
-        for feature_tensor, label in zip(self.__feature_tensor, self.__int_label_tensor):
+        for feature_tensor in feature_tensor_list:
             euclidean_distance: float = EuclideanDistance.get_euclidean_distance(feature_tensor,
                                                                                  input_feature_tensor)
 
-            heap_node: HeapNode = HeapNode(euclidean_distance=euclidean_distance,
-                                           label=label)
+            heap_node: HeapNode = HeapNode(neighbour_id=1, feature_tensor=feature_tensor, euclidean_distance=euclidean_distance)
             min_heap.insert(heap_node=heap_node)
 
-        label_count_dict: dict = {label: 0 for label in self.__labels}
         for _ in range(self.__k):
-            heap_node: HeapNode = min_heap.pop()
-            label_count_dict[heap_node.get_label()] += 1
+            neighbour: HeapNode = min_heap.pop()
+
 
         predicted_label: int = max(label_count_dict)
         return predicted_label
